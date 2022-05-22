@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:todo_app/List/listviewdesign.dart';
 import 'package:todo_app/List/todolist%20fragment.dart';
+import 'package:todo_app/database/model/Todo.dart';
+import 'package:todo_app/homescreen/bottomsheet/bottomsheet%20widget.dart';
 import 'package:todo_app/main.dart';
 import 'package:todo_app/settings/settings%20fragment.dart';
 
@@ -12,9 +16,7 @@ class homescreen extends StatefulWidget {
 
 class _homescreenState extends State<homescreen> {
   int index = 0;
-  String title='';
-  String cintent='';
-  DateTime date=DateTime.now();
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class _homescreenState extends State<homescreen> {
         onPressed: () {
           openbottomsheet();
         },
-        child: Icon(
+        child:Icon(
           Icons.add,
           size: 30,
         ),
@@ -84,66 +86,11 @@ class _homescreenState extends State<homescreen> {
   void openbottomsheet() {
     setState(() {
       showModalBottomSheet(
+          isScrollControlled: true,
           context: context,
-          builder: (context) => BottomSheet(
-                onClosing: () {},
-                builder: (context) => Container(
-                  height: 500,
-                  color: Colors.white,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Add new Task',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20, decoration: TextDecoration.underline),
-                      ),
-                      TextField(onChanged: (newtext){
-                        title=newtext;
-                      },
-                        decoration: InputDecoration(labelText:'Title',
-                            fillColor: Colors.white,
-                            filled: true,
-                            hintText: 'enter the  task'),
-                      ),
-                      TextField(onChanged: (newtext){
-                        cintent=newtext;
-                      },
-                        decoration: InputDecoration(labelText: 'Content',
-                            fillColor: Colors.white,
-                            filled: true,
-                            hintText: 'write content'),
-                      ),
-                      InkWell(
-                        onTap: ()async{
-                          var selecteddate =await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate:
-                                  DateTime.now().add(Duration(days: 300)));
-                          date=selecteddate!;
-                        },
-                        child: Text(
-                          'select date',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: null,
-                        child: Text('ADD',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 15)),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                mythemedata.primarycolor)),
-                      )
-                    ],
-                  ),
-                ),
-              ));
+          builder: (context) =>bottomsheet());
     });
   }
+
+
 }
