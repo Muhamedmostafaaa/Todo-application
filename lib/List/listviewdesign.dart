@@ -8,17 +8,18 @@ import 'package:todo_app/main.dart';
 import '../database/model/Todo.dart';
 
 class listviewdesign extends StatefulWidget {
-  Todo todo;
-  static bool isclicked = false;
+  Todo todo;int index;
+
   Function ondeletetap;
 
-  listviewdesign(this.todo, this.ondeletetap);
+  listviewdesign(this.todo, this.ondeletetap,this.index);
 
   @override
   State<listviewdesign> createState() => _listviewdesignState();
 }
 
 class _listviewdesignState extends State<listviewdesign> {
+  bool isclicked = false;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -81,7 +82,7 @@ class _listviewdesignState extends State<listviewdesign> {
                   mainAxisAlignment: MainAxisAlignment.values[4],
                   children: [
                     Container(
-                        color: listviewdesign.isclicked
+                        color:isclicked
                             ? mythemedata.changingcheckcolor
                             : mythemedata.primarycolor,
                         width: 5,
@@ -92,7 +93,7 @@ class _listviewdesignState extends State<listviewdesign> {
                         Text(
                           widget.todo.title,
                           style: TextStyle(
-                              color: listviewdesign.isclicked
+                              color: isclicked
                                   ? mythemedata.changingcheckcolor
                                   : mythemedata.primarycolor,
                               fontWeight: FontWeight.bold,
@@ -119,9 +120,9 @@ class _listviewdesignState extends State<listviewdesign> {
                     ),
                     InkWell(
                       onTap: () {
-                        oncheckclick();
+                        oncheckclick(widget.index);
                       },
-                      child: listviewdesign.isclicked
+                      child: isclicked
                           ? Text(
                               'Done!',
                               textAlign: TextAlign.center,
@@ -132,7 +133,7 @@ class _listviewdesignState extends State<listviewdesign> {
                             )
                           : Container(
                               decoration: BoxDecoration(
-                                color: listviewdesign.isclicked
+                                color: isclicked
                                     ? Colors.lightGreen
                                     : mythemedata.primarycolor,
                                 borderRadius: BorderRadius.circular(15),
@@ -154,12 +155,16 @@ class _listviewdesignState extends State<listviewdesign> {
     );
   }
 
-  void oncheckclick() {
+  void oncheckclick(int index) {
+    print(index);
     setState(() {
-      if (listviewdesign.isclicked) {
-        listviewdesign.isclicked = false;
+      if (isclicked) {
+       isclicked = false;
+        print(isclicked);
       } else
-        listviewdesign.isclicked = true;
+        isclicked = true;
+      print(isclicked);
     });
+
   }
 }

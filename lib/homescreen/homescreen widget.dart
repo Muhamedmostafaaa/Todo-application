@@ -24,11 +24,11 @@ class _homescreenState extends State<homescreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(150.0),
-          child: AppBar(
+          child: AppBar(elevation: 0,
               title: Container(
             margin: EdgeInsets.only(left: 30, top: 30),
-            child: Text(
-              'To Do List',
+            child: Text(index==0?
+              'To Do List':'Settings',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ))),

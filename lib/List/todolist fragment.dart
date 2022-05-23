@@ -67,7 +67,7 @@ class _todolistState extends State<todolist> {
               ),
               Expanded(
                   child: ListView.builder(
-                    itemBuilder: (context, index) => listviewdesign(list.list[index],deleteindex),
+                    itemBuilder: (context, index) => listviewdesign(list.list[index],deleteindex,index),
                     itemCount: list.list.length,
                   ))
             ],
