@@ -9,6 +9,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo_app/provider/appproviders.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../provider/themeprovider.dart';
+
 class todolist extends StatefulWidget {
   @override
   State<todolist> createState() => _todolistState();
@@ -16,20 +18,22 @@ class todolist extends StatefulWidget {
 
 class _todolistState extends State<todolist> {
   DateTime selected = DateTime.now();
-  DateTime focusedday=DateTime.now();
+  DateTime focusedday = DateTime.now();
   List<Todo> boxdata = [];
-  appprovider list=appprovider();
-
+  appprovider list = appprovider();
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context)=>appprovider(),
-      builder: (context,widget){
-    list=Provider.of<appprovider>(context);
-    getdata();
+      create: (context) => appprovider(),
+      builder: (context, widget) {
+        list = Provider.of<appprovider>(context);
+        final theme = Provider.of<themeprovider>(context);
+        getdata();
         return Container(
-          color: Color.fromRGBO(223, 236, 219, 1.0),
+          color: theme.isdarkmodeenaabled()
+              ? mythemedata.backgrounddark
+              : Color.fromRGBO(223, 236, 219, 1.0),
           child: Column(
             children: [
               TableCalendar(
@@ -43,18 +47,24 @@ class _todolistState extends State<todolist> {
                       borderRadius: BorderRadius.circular(5),
                       color: mythemedata.primarycolor),
                   defaultDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5), color: Colors.white),
-                  selectedTextStyle: TextStyle(fontSize: 20, color: Colors.white),
-                  defaultTextStyle: TextStyle(color: Colors.black),
+                      borderRadius: BorderRadius.circular(5),
+                      color: theme.isdarkmodeenaabled()
+                          ? mythemedata.secondarydark
+                          : Colors.white),
+                  selectedTextStyle:
+                      TextStyle(fontSize: 20, color: Colors.white),
+                  defaultTextStyle: TextStyle(
+                      color: theme.isdarkmodeenaabled()
+                          ? Colors.white
+                          : Colors.black),
                 ),
                 selectedDayPredicate: (day) {
                   return isSameDay(selected, day);
-
                 },
                 onDaySelected: (selectedDay, newfocusedDay) {
                   setState(() {
                     selected = selectedDay;
-                    focusedday=newfocusedDay;
+                    focusedday = newfocusedDay;
                     // update `_focusedDay` here as well
                   });
                   getdata();
@@ -63,13 +73,20 @@ class _todolistState extends State<todolist> {
                 daysOfWeekStyle: DaysOfWeekStyle(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Colors.white)),
+                        color: theme.isdarkmodeenaabled()
+                            ? mythemedata.secondarydark
+                            : Colors.white),
+                    weekdayStyle: TextStyle(
+                        color: theme.isdarkmodeenaabled()
+                            ? Colors.white
+                            : Colors.black)),
               ),
               Expanded(
                   child: ListView.builder(
-                    itemBuilder: (context, index) => listviewdesign(list.list[index],deleteindex,index),
-                    itemCount: list.list.length,
-                  ))
+                itemBuilder: (context, index) =>
+                    listviewdesign(list.list[index], deleteindex, index),
+                itemCount: list.list.length,
+              ))
             ],
           ),
         );
@@ -78,16 +95,18 @@ class _todolistState extends State<todolist> {
     ;
   }
 
-void deleteindex(Todo item)async{
-  var box=await Hive.openBox<Todo>(Todo.Boxname);
-  int index= box.values.toList().indexOf(item);
-box.deleteAt(index);
-getdata();
-}
-   void getdata() async {
+  void deleteindex(Todo item) async {
+    var box = await Hive.openBox<Todo>(Todo.Boxname);
+    int index = box.values.toList().indexOf(item);
+    box.deleteAt(index);
+    getdata();
+  }
+
+  void getdata() async {
     var box = await Hive.openBox<Todo>(Todo.Boxname);
 
-      List<Todo>boxlist = box.values.where((item) => isSameDay(item.date, selected)).toList();
-      list.validate(boxlist);
+    List<Todo> boxlist =
+        box.values.where((item) => isSameDay(item.date, selected)).toList();
+    list.validate(boxlist);
   }
 }

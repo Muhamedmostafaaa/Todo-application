@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/editscreen/editscreendesign.dart';
 import 'package:todo_app/main.dart';
+import 'package:todo_app/provider/themeprovider.dart';
 
 import '../database/model/Todo.dart';
 
@@ -22,6 +24,7 @@ class _listviewdesignState extends State<listviewdesign> {
   bool isclicked = false;
   @override
   Widget build(BuildContext context) {
+    final theme=Provider.of<themeprovider>(context);
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, editscreendesign.ROUTE_NAME,
@@ -74,7 +77,7 @@ class _listviewdesignState extends State<listviewdesign> {
               height: 120,
               margin: EdgeInsets.all(0),
               decoration: BoxDecoration(
-                  color: mythemedata.secondarycolor,
+                  color:theme.isdarkmodeenaabled()?mythemedata.secondarydark: mythemedata.secondarycolor,
                   borderRadius: BorderRadius.circular(15)),
               child: Container(
                 padding: EdgeInsets.all(0),
@@ -104,7 +107,7 @@ class _listviewdesignState extends State<listviewdesign> {
                             Icon(
                               Icons.date_range_rounded,
                               size: 14,
-                              color: Colors.black,
+                              color: theme.isdarkmodeenaabled()?Colors.white: Colors.black,
                             ),
                             SizedBox(
                               height: 25,
@@ -112,7 +115,7 @@ class _listviewdesignState extends State<listviewdesign> {
                             Text(
                               DateFormat('dd-MM-yyyy').format(widget.todo.date),
                               style:
-                                  TextStyle(fontSize: 14, color: Colors.black),
+                                  TextStyle(fontSize: 14, color:theme.isdarkmodeenaabled()?Colors.white: Colors.black),
                             )
                           ],
                         )

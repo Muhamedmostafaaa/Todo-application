@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/main.dart';
 import 'package:todo_app/provider/themeprovider.dart';
+import 'package:todo_app/settings/languagebottomsheet.dart';
 import 'package:todo_app/settings/settingbottomsheet.dart';
 
 class settings extends StatefulWidget {
@@ -14,7 +15,7 @@ class _settingsState extends State<settings> {
   @override
   Widget build(BuildContext context) {
     final theme=Provider.of<themeprovider>(context);
-    return Container(color: Color.fromRGBO(223, 236, 219, 1.0),
+    return Container(color:theme.isdarkmodeenaabled()?mythemedata.backgrounddark: Color.fromRGBO(223, 236, 219, 1.0),
       child: Column(
         children: [Container(
 
@@ -25,14 +26,14 @@ class _settingsState extends State<settings> {
                 height: 50,
               ),
               Container(
-                  margin: EdgeInsets.only(left: 30),
+                  margin: EdgeInsets.only(left: 18),
                   child: Text(
-                    'mode',
+                    'Language',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        color:theme.isdarkmodeenaabled()?Colors.white: Colors.black),
                   )),
               SizedBox(
                 height: 10,
@@ -49,22 +50,24 @@ class _settingsState extends State<settings> {
                         width: 20,
                       ),
                       Text(
-                        'light',
+                        theme.isdarkmodeenaabled()?'English':'Arabic',
                         style: TextStyle(color: mythemedata.primarycolor),
                       ),
                       Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_circle_down,
-                          color: mythemedata.primarycolor,
+                        child: InkWell(onTap: (){onlanguageitcontap();},
+                          child: Icon(
+                            Icons.arrow_circle_down,
+                            color: mythemedata.primarycolor,
+                          ),
                         ),
                       )
                     ],
                   ),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
+                      color: theme.isdarkmodeenaabled()?mythemedata.backgrounddark: Colors.white,
                       border: Border.all(color: mythemedata.primarycolor)),
                 ),
               ),
@@ -72,7 +75,7 @@ class _settingsState extends State<settings> {
           ),
         ),
           Container(
-            color: Color.fromRGBO(223, 236, 219, 1.0),
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -87,7 +90,7 @@ class _settingsState extends State<settings> {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                          color:theme.isdarkmodeenaabled()?Colors.white: Colors.black),
                     )),
                 SizedBox(
                   height: 10,
@@ -121,7 +124,7 @@ class _settingsState extends State<settings> {
                     ),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
+                        color: theme.isdarkmodeenaabled()?mythemedata.backgrounddark: Colors.white,
                         border: Border.all(color: mythemedata.primarycolor)),
                   ),
                 ),
@@ -141,5 +144,13 @@ class _settingsState extends State<settings> {
     );
 
 
+  }
+  void onlanguageitcontap(){
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) =>languagesheet()
+
+    );
   }
 }

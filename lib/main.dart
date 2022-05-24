@@ -40,9 +40,11 @@ class mythemedata{
  static var primarycolor = Colors.blue;
   static var secondarycolor= Color.fromRGBO(255, 255, 255, 1.0);
   static var changingcheckcolor=Color.fromRGBO(97, 231, 87, 1.0);
+  static var secondarydark=Color.fromRGBO(20, 25, 34, 1.0);
+  static var backgrounddark=Color.fromRGBO(6, 14, 30, 1.0);
   static final darktheme=ThemeData(
       colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: Colors.red,
+        primarySwatch: mythemedata.primarycolor,
       ).copyWith(
         secondary: mythemedata.secondarycolor,)
 
@@ -51,6 +53,6 @@ class mythemedata{
       colorScheme: ColorScheme.fromSwatch(
         primarySwatch:mythemedata.primarycolor,
       ).copyWith(
-        secondary: mythemedata.secondarycolor,)
+        secondary:secondarydark ,)
   );
 }
