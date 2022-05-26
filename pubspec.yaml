@@ -42,7 +42,12 @@ dependencies:
   flutter_native_splash: ^2.2.0+1
 flutter_native_splash:
 
-  background_image: assets/images/sp.png
+  color: "#ffffff"
+  image: assets/images/sp.png
+  color_dark: "#1a1a1a"
+  image_dark: assets/images/darksplash.png
+  android_gravity: fill
+  ios_content_mode: scaleAspectfill
   android: true
   android12: true
   ios: true
