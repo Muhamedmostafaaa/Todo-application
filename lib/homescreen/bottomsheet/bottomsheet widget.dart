@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:todo_app/main.dart';
 import 'package:intl/intl.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../database/model/Todo.dart';
 
 class bottomsheet extends StatefulWidget{
@@ -37,7 +37,7 @@ class _bottomsheetState extends State<bottomsheet> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'Add new Task',
+              AppLocalizations.of(context)!.addnewtask,
               textAlign: TextAlign.start,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class _bottomsheetState extends State<bottomsheet> {
               },
               decoration: InputDecoration(
                   errorText: titeleroor?'please enter a valid title':null,
-                  labelText: 'Title',
+                  labelText: AppLocalizations.of(context)!.title,
                   fillColor: Colors.white,
                   filled: true,
                   hintText: 'enter the  task'),
@@ -68,7 +68,7 @@ class _bottomsheetState extends State<bottomsheet> {
               },
               decoration: InputDecoration(
                   errorText: contenterorr?'please enter a valid content':null,
-                  labelText: 'Content',
+                  labelText: AppLocalizations.of(context)!.content,
                   fillColor: Colors.white,
                   filled: true,
                   hintText: 'write content'),
@@ -87,7 +87,7 @@ class _bottomsheetState extends State<bottomsheet> {
 
               },
               child:date==null? Text(
-                'select date',
+                AppLocalizations.of(context)!.selectdate,
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.bold,color:dateerorr?Colors.red:Colors.black),
               ):Text(
@@ -98,7 +98,7 @@ class _bottomsheetState extends State<bottomsheet> {
               onPressed: () {
                 onaddtap();
               },
-              child: Text('ADD',
+              child: Text(AppLocalizations.of(context)!.add,
                   style:
                   TextStyle(color: Colors.white, fontSize: 15)),
               style: ButtonStyle(

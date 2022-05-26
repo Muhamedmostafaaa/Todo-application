@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/editscreen/editscreendesign.dart';
 import 'package:todo_app/main.dart';
 import 'package:todo_app/provider/themeprovider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../database/model/Todo.dart';
 
@@ -62,7 +63,7 @@ class _listviewdesignState extends State<listviewdesign> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'delete',
+                                AppLocalizations.of(context)!.delete,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),

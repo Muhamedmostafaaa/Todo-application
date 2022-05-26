@@ -8,7 +8,7 @@ import 'package:todo_app/homescreen/bottomsheet/bottomsheet%20widget.dart';
 import 'package:todo_app/main.dart';
 import 'package:todo_app/provider/themeprovider.dart';
 import 'package:todo_app/settings/settings%20fragment.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class homescreen extends StatefulWidget {
   static final String ROUTE_NAME = 'home screen';
 
@@ -34,7 +34,7 @@ class _homescreenState extends State<homescreen> {
               title: Container(
                 margin: EdgeInsets.only(left: 30, top: 30),
                 child: Text(
-                  index == 0 ? 'To Do List' : 'Settings',
+                  index == 0 ?AppLocalizations.of(context)!.todolist  :AppLocalizations.of(context)!.settings ,
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color: theme.isdarkmodeenaabled()?mythemedata.backgrounddark:Colors.white),
                 ),
               ))),

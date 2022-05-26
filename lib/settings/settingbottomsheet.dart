@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/main.dart';
 import 'package:todo_app/provider/themeprovider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class settingbottomsheet extends StatefulWidget {
 
   @override
@@ -12,7 +13,10 @@ class settingbottomsheet extends StatefulWidget {
 class _settingbottomsheetState extends State<settingbottomsheet> {
   @override
   int index = 1;
-
+void setdata(String theme)async{
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString('theme', theme);
+}
   Widget build(BuildContext context) {
     final theme=Provider.of<themeprovider>(context);
     return BottomSheet(
@@ -35,13 +39,14 @@ class _settingbottomsheetState extends State<settingbottomsheet> {
 
                               if(theme.thememode==ThemeMode.dark){
                                 theme.togeletheme();
+                                setdata('light');
                               }
 
                                 Navigator.pop(context);
                               ;
                             },
                             child: Text(
-                              'Light',
+                              AppLocalizations.of(context)!.light,
                               style: TextStyle(
                                   color: !theme.isdarkmodeenaabled()
                                       ? mythemedata.primarycolor
@@ -62,12 +67,13 @@ class _settingbottomsheetState extends State<settingbottomsheet> {
                             onTap: () {
                               if(theme.thememode==ThemeMode.light){
                                 theme.togeletheme();
+                                setdata('dark');
                               }
                                 Navigator.pop(context);
 
                             },
                             child: Text(
-                              'dark',
+                              AppLocalizations.of(context)!.dark,
                               style: TextStyle(
                                   color: theme.isdarkmodeenaabled()
                                       ? mythemedata.primarycolor

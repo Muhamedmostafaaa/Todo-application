@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:todo_app/database/model/Todo.dart';
 import 'package:todo_app/main.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class editscreendesign extends StatefulWidget {
   static final String ROUTE_NAME = 'editscreen';
@@ -50,7 +51,7 @@ if(counter==0) {
             bottom: 600,
             child: AppBar(
                 title: Text(
-              'To Do List',
+              AppLocalizations.of(context)!.todolist,
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             )),
           ),
@@ -64,7 +65,7 @@ if(counter==0) {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'Edit Task',
+                    AppLocalizations.of(context)!.edittask,
                     textAlign: TextAlign.start,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -82,7 +83,7 @@ if(counter==0) {
                     decoration: InputDecoration(
                         errorText:
                             titeleroor ? 'please enter a valid title' : null,
-                        labelText: 'Title',
+                        labelText: AppLocalizations.of(context)!.title,
                         fillColor: Colors.white,
                         filled: true,
                         hintText: 'enter the  task'),
@@ -99,7 +100,7 @@ if(counter==0) {
                         errorText: contenterorr
                             ? 'please enter a valid content'
                             : null,
-                        labelText: 'Content',
+                        labelText: AppLocalizations.of(context)!.content,
                         fillColor: Colors.white,
                         filled: true,
                         hintText: 'write content'),
@@ -117,7 +118,7 @@ if(counter==0) {
                     },
                     child: date == null
                         ? Text(
-                            'select date',
+                      AppLocalizations.of(context)!.selectdate,
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -133,7 +134,7 @@ if(counter==0) {
                     onPressed: () {
                       save(todo);
                     },
-                    child: Text('Save Changes',
+                    child: Text(AppLocalizations.of(context)!.savechanges,
                         style: TextStyle(color: Colors.white, fontSize: 15)),
                     style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(8))),
